@@ -28,23 +28,23 @@ var handleTogglerChange = function(toggler) {
     if(togglerType === 'onoff') {
         var checkOn = $(toggler.data('toggle-on')),
             checkOff = $(toggler.data('toggle-off'));
-
+        console.log(checkOn);
         if(toggler.is(':checked')) {
-            togglerActivate(checkOn);
-            togglerDeactivate(checkOff);
-            loadUninitializedTogglers(checkOn);
+            togglerActivate(toggler.closest(checkOn));
+            togglerDeactivate(toggler.closest(checkOff));
+            loadUninitializedTogglers(toggler.closest(checkOn));
         }
         else {
-            togglerDeactivate(checkOn);
-            togglerActivate(checkOff);
-            loadUninitializedTogglers(checkOff);
+            togglerDeactivate(toggler.closest(checkOn));
+            togglerActivate(toggler.closest(checkOff));
+            loadUninitializedTogglers(toggler.closest(checkOff));
         }
     }
     else if(togglerType == 'option') {
         var activateGroup = $('[data-toggle-id=' + toggler.find('option:selected').data('toggle-on') + ']');
         togglerDeactivate($('[data-toggle-group=' + toggler.data('toggle-off-group') + ']'));
-        togglerActivate(activateGroup);
-        loadUninitializedTogglers(activateGroup);
+        togglerActivate(toggler.closest(activateGroup));
+        loadUninitializedTogglers(toggler.closest(activateGroup));
     }
 
 };
